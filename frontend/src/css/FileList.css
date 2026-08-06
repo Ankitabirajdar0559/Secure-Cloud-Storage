@@ -1,0 +1,110 @@
+.file-container {
+
+    margin-top:40px;
+
+}
+
+
+.file-container h2 {
+
+    color:#1e293b;
+
+}
+
+
+.file-grid {
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(260px,1fr));
+
+    gap:20px;
+
+}
+
+
+.file-card {
+
+    background:white;
+
+    padding:20px;
+
+    border-radius:18px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+    box-shadow:
+    0 8px 25px rgba(0,0,0,0.08);
+
+}
+
+
+.file-icon {
+
+    font-size:40px;
+
+}
+
+
+.file-details {
+
+    flex:1;
+
+}
+
+
+.file-details h3 {
+
+    margin:0;
+
+    color:#334155;
+
+    font-size:16px;
+
+}
+
+
+.file-details p {
+
+    margin-top:5px;
+
+    color:#64748b;
+
+}
+
+
+
+.delete-btn {
+
+    background:#ef4444;
+
+    color:white;
+
+    border:none;
+
+    padding:8px 14px;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+}
+
+
+.delete-btn:hover {
+
+    background:#dc2626;
+
+}
+
+
+.empty {
+
+    color:#64748b;
+
+}

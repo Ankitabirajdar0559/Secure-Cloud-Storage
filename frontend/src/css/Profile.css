@@ -1,0 +1,157 @@
+.profile-page{
+
+    display:flex;
+
+    justify-content:center;
+
+    padding:30px;
+
+}
+
+.profile-card{
+
+    width:100%;
+
+    max-width:1000px;
+
+    background:rgba(255,255,255,.08);
+
+    backdrop-filter:blur(25px);
+
+    border:1px solid rgba(255,255,255,.15);
+
+    border-radius:25px;
+
+    padding:40px;
+
+}
+
+.profile-header{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:25px;
+
+    margin-bottom:40px;
+
+}
+
+.avatar-large{
+
+    width:120px;
+
+    height:120px;
+
+    border-radius:50%;
+
+    background:linear-gradient(135deg,#2563eb,#7c3aed);
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:42px;
+
+    font-weight:bold;
+
+    color:white;
+
+    overflow:hidden;
+
+}
+
+.avatar-large img{
+
+    width:100%;
+
+    height:100%;
+
+    object-fit:cover;
+
+}
+
+.role-badge{
+
+    display:inline-block;
+
+    margin-top:12px;
+
+    padding:8px 18px;
+
+    border-radius:30px;
+
+    background:#2563eb;
+
+}
+
+.profile-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+
+    gap:20px;
+
+}
+
+.info-card{
+
+    background:rgba(255,255,255,.06);
+
+    border-radius:18px;
+
+    padding:25px;
+
+    transition:.3s;
+
+}
+
+.info-card:hover{
+
+    transform:translateY(-6px);
+
+}
+
+.info-card h4{
+
+    color:#94a3b8;
+
+    margin-bottom:10px;
+
+}
+
+.info-card p{
+
+    font-size:18px;
+
+    font-weight:600;
+
+}
+
+.edit-btn{
+
+    margin-top:35px;
+
+    width:100%;
+
+    padding:15px;
+
+    border:none;
+
+    border-radius:14px;
+
+    background:linear-gradient(135deg,#2563eb,#7c3aed);
+
+    color:white;
+
+    font-size:17px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+}

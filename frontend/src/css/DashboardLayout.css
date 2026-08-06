@@ -1,0 +1,114 @@
+.dashboard-layout {
+
+    display:flex;
+
+    min-height:100vh;
+
+    width:100%;
+
+    background:#0f172a;
+
+    overflow:hidden;
+
+}
+
+
+
+/* Sidebar space */
+
+.dashboard-sidebar {
+
+    width:260px;
+
+    flex-shrink:0;
+
+}
+
+
+
+/* Main content area */
+
+.dashboard-content {
+
+    flex:1;
+
+    padding:30px;
+
+    overflow-y:auto;
+
+    height:100vh;
+
+    box-sizing:border-box;
+
+}
+
+
+
+
+
+/* Keep page centered */
+
+.dashboard-container {
+
+    width:100%;
+
+    max-width:1400px;
+
+    margin:auto;
+
+}
+
+
+
+
+
+/* Scrollbar */
+
+.dashboard-content::-webkit-scrollbar {
+
+    width:8px;
+
+}
+
+
+.dashboard-content::-webkit-scrollbar-thumb {
+
+    background:#334155;
+
+    border-radius:10px;
+
+}
+
+
+
+
+
+/* Responsive */
+
+@media(max-width:900px){
+
+
+.dashboard-layout{
+
+    flex-direction:column;
+
+}
+
+
+.dashboard-sidebar{
+
+    width:100%;
+
+}
+
+
+.dashboard-content{
+
+    height:auto;
+
+    padding:20px;
+
+}
+
+
+}

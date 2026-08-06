@@ -1,0 +1,97 @@
+.storage-grid{
+
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+
+}
+
+
+
+.storage-card{
+
+    background:white;
+    padding:25px;
+    border-radius:18px;
+
+    box-shadow:
+    0 5px 20px rgba(0,0,0,0.08);
+
+}
+
+
+
+.storage-icon{
+
+    width:45px;
+    height:45px;
+
+    background:#eef2ff;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    border-radius:12px;
+
+    font-size:22px;
+
+}
+
+
+
+.storage-card h3{
+
+    margin-top:20px;
+
+    font-size:18px;
+
+}
+
+
+
+.storage-card h2{
+
+    font-size:28px;
+
+}
+
+
+
+.progress-bar{
+
+    height:8px;
+
+    background:#e5e7eb;
+
+    border-radius:10px;
+
+    overflow:hidden;
+
+}
+
+
+
+.progress-bar span{
+
+    display:block;
+
+    height:100%;
+
+    background:#4f46e5;
+
+}
+
+
+
+.storage-info{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    margin-top:10px;
+
+    color:#64748b;
+
+}
