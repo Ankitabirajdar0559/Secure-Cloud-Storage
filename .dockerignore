@@ -1,0 +1,8 @@
+target
+frontend
+uploads
+.git
+.settings
+.classpath
+.project
+.factorypath

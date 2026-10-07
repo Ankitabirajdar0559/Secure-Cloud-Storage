@@ -1,0 +1,50 @@
+services:
+  db:
+    image: mysql:8.0
+    container_name: db-tier
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: cloud_storage_db
+    volumes:
+      - db-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-prootpass"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+    networks:
+      - db-net
+
+  backend:
+    build: .
+    container_name: app-tier
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/cloud_storage_db?createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true&useSSL=false
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: rootpass
+    volumes:
+      - uploads-data:/app/uploads
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - web-net
+      - db-net
+
+  frontend:
+    build: ./frontend
+    container_name: web-tier
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    networks:
+      - web-net
+
+networks:
+  web-net:
+  db-net:
+
+volumes:
+  db-data:
+  uploads-data:
