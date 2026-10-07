@@ -1,4 +1,4 @@
-import "./RecentFiles.css";
+import "../css/RecentFiles.css";
 
 
 const RecentFiles = ({files=[]}) => {

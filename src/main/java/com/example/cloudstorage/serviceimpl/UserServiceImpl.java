@@ -28,14 +28,22 @@ public class UserServiceImpl implements UserService {
     public User registerUser(User user) {
 
         if (userRepository.existsByEmail(user.getEmail())) {
-            throw new RuntimeException("Email already registered.");
+            throw new RuntimeException(
+                    "Email already registered."
+            );
         }
 
         if (user.getRole() == null) {
             user.setRole(Role.USER);
         }
 
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setEnabled(true);
+
+        user.setPassword(
+                passwordEncoder.encode(
+                        user.getPassword()
+                )
+        );
 
         return userRepository.save(user);
     }
@@ -48,7 +56,11 @@ public class UserServiceImpl implements UserService {
     public User getUserByEmail(String email) {
 
         return userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("User not found."));
+                .orElseThrow(
+                        () -> new RuntimeException(
+                                "User not found."
+                        )
+                );
     }
 
     // ==========================
@@ -59,7 +71,11 @@ public class UserServiceImpl implements UserService {
     public User getUserById(Long id) {
 
         return userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("User not found."));
+                .orElseThrow(
+                        () -> new RuntimeException(
+                                "User not found."
+                        )
+                );
     }
 
     // ==========================
@@ -67,15 +83,27 @@ public class UserServiceImpl implements UserService {
     // ==========================
 
     @Override
-    public User updateProfile(String email, User updatedUser) {
+    public User updateProfile(
+            String email,
+            User updatedUser) {
 
-        User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("User not found."));
+        User user =
+                userRepository.findByEmail(email)
+                        .orElseThrow(
+                                () -> new RuntimeException(
+                                        "User not found."
+                                )
+                        );
 
-        user.setName(updatedUser.getName());
+        user.setName(
+                updatedUser.getName()
+        );
 
         if (updatedUser.getProfileImage() != null) {
-            user.setProfileImage(updatedUser.getProfileImage());
+
+            user.setProfileImage(
+                    updatedUser.getProfileImage()
+            );
         }
 
         return userRepository.save(user);
@@ -86,18 +114,33 @@ public class UserServiceImpl implements UserService {
     // ==========================
 
     @Override
-    public void changePassword(String email,
-                               String oldPassword,
-                               String newPassword) {
+    public void changePassword(
+            String email,
+            String oldPassword,
+            String newPassword) {
 
-        User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("User not found."));
+        User user =
+                userRepository.findByEmail(email)
+                        .orElseThrow(
+                                () -> new RuntimeException(
+                                        "User not found."
+                                )
+                        );
 
-        if (!passwordEncoder.matches(oldPassword, user.getPassword())) {
-            throw new RuntimeException("Current password is incorrect.");
+        if (!passwordEncoder.matches(
+                oldPassword,
+                user.getPassword())) {
+
+            throw new RuntimeException(
+                    "Current password is incorrect."
+            );
         }
 
-        user.setPassword(passwordEncoder.encode(newPassword));
+        user.setPassword(
+                passwordEncoder.encode(
+                        newPassword
+                )
+        );
 
         userRepository.save(user);
     }
@@ -107,14 +150,21 @@ public class UserServiceImpl implements UserService {
     // ==========================
 
     @Override
-    public void updateLastLogin(String email) {
+    public void updateLastLogin(
+            String email) {
 
-        User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("User not found."));
+        User user =
+                userRepository.findByEmail(email)
+                        .orElseThrow(
+                                () -> new RuntimeException(
+                                        "User not found."
+                                )
+                        );
 
-        user.setLastLogin(LocalDateTime.now());
+        user.setLastLogin(
+                LocalDateTime.now()
+        );
 
         userRepository.save(user);
     }
-
 }

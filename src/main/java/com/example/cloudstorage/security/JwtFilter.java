@@ -27,6 +27,16 @@ public class JwtFilter extends OncePerRequestFilter {
     private UserDetailsService userDetailsService;
 
     @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) {
+
+        String path = request.getServletPath();
+
+        return path.startsWith("/api/auth/")
+                || path.equals("/api/users/register")
+                || path.equals("/actuator/health");
+    }
+
+    @Override
     protected void doFilterInternal(
             HttpServletRequest request,
             HttpServletResponse response,
@@ -38,28 +48,32 @@ public class JwtFilter extends OncePerRequestFilter {
         String token = null;
         String email = null;
 
-        // Extract JWT Token
-        if (authHeader != null && authHeader.startsWith("Bearer ")) {
+        // Check Authorization header
+        if (authHeader != null &&
+                authHeader.startsWith("Bearer ")) {
 
             token = authHeader.substring(7);
 
             try {
-
                 email = jwtUtil.extractEmail(token);
 
-            } catch (JwtException | IllegalArgumentException e) {
+            } catch (JwtException |
+                     IllegalArgumentException e) {
 
                 response.sendError(
                         HttpServletResponse.SC_UNAUTHORIZED,
-                        "Invalid or Expired JWT Token");
+                        "Invalid or Expired JWT Token"
+                );
 
                 return;
             }
         }
 
-        // Authenticate User
+        // Authenticate user if JWT exists
         if (email != null &&
-                SecurityContextHolder.getContext().getAuthentication() == null) {
+                SecurityContextHolder
+                    .getContext()
+                    .getAuthentication() == null) {
 
             UserDetails userDetails =
                     userDetailsService.loadUserByUsername(email);
@@ -70,11 +84,13 @@ public class JwtFilter extends OncePerRequestFilter {
                         new UsernamePasswordAuthenticationToken(
                                 userDetails,
                                 null,
-                                userDetails.getAuthorities());
+                                userDetails.getAuthorities()
+                        );
 
                 authentication.setDetails(
                         new WebAuthenticationDetailsSource()
-                                .buildDetails(request));
+                                .buildDetails(request)
+                );
 
                 SecurityContextHolder
                         .getContext()
@@ -84,5 +100,4 @@ public class JwtFilter extends OncePerRequestFilter {
 
         filterChain.doFilter(request, response);
     }
-
 }

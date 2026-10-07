@@ -5,7 +5,7 @@ function FileCard({ file, onDelete }) {
     const downloadFile = () => {
 
         window.open(
-            `http://localhost:8081/api/files/download/${file.fileName}`,
+           `/api/files/download/${file.fileName}`,
             "_blank"
         );
 

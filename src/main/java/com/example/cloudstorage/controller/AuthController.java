@@ -7,59 +7,47 @@ import org.springframework.web.bind.annotation.*;
 import com.example.cloudstorage.dto.LoginRequest;
 import com.example.cloudstorage.dto.LoginResponse;
 import com.example.cloudstorage.entity.User;
-import com.example.cloudstorage.repository.UserRepository;
 import com.example.cloudstorage.service.AuthService;
+import com.example.cloudstorage.service.UserService;
 
 @RestController
 @RequestMapping("/api/auth")
 @CrossOrigin(origins = "http://localhost:5173")
 public class AuthController {
 
-
     @Autowired
     private AuthService authService;
 
-
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
+    // ==========================
+    // Login
+    // ==========================
 
-
-    // LOGIN
     @PostMapping("/login")
     public ResponseEntity<?> login(
-            @RequestBody LoginRequest request
-    ) {
+            @RequestBody LoginRequest request) {
 
         LoginResponse response =
                 authService.login(request);
 
-
         return ResponseEntity.ok(response);
-
     }
 
+    // ==========================
+    // Register
+    // ==========================
 
-
-
-
-    // REGISTER
     @PostMapping("/register")
     public ResponseEntity<?> register(
-            @RequestBody User user
-    ) {
-
+            @RequestBody User user) {
 
         User savedUser =
-                userRepository.save(user);
-
-
+                userService.registerUser(user);
 
         return ResponseEntity.ok(
                 "Registration successful"
         );
-
     }
-
-
 }

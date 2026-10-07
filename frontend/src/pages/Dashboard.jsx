@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import useAuth from "../hooks/useAuth";
 import fileService from "../services/fileService";
-import "../css/Dashboard.css";
+import "../css/dashboard.css";
 
 
 export default function Dashboard() {

@@ -1,4 +1,4 @@
-import "./StorageCard.css";
+import "../css/StorageCard.css";
 
 
 const StorageCard = ({files = []}) => {

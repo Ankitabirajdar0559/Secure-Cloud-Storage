@@ -6,9 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import org.springframework.http.HttpMethod;
+
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
-
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 
@@ -21,162 +22,117 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.example.cloudstorage.security.JwtFilter;
 
-
 @Configuration
 public class SecurityConfig {
 
-
     @Autowired
     private JwtFilter jwtFilter;
-
-
 
     @Bean
     public SecurityFilterChain securityFilterChain(
             HttpSecurity http) throws Exception {
 
-
         http
-
-            // CORS
             .cors(cors ->
                 cors.configurationSource(corsConfigurationSource())
             )
 
-
-            // Disable CSRF for REST API
             .csrf(csrf ->
                 csrf.disable()
             )
 
-
-            // JWT based authentication
             .sessionManagement(session ->
                 session.sessionCreationPolicy(
                     SessionCreationPolicy.STATELESS
                 )
             )
 
-
             .authorizeHttpRequests(auth -> auth
 
-
-                // Public APIs
+                // Allow CORS preflight requests
                 .requestMatchers(
-                        "/api/auth/**",
-                        "/api/users/register"
-                )
-                .permitAll()
+                    HttpMethod.OPTIONS,
+                    "/**"
+                ).permitAll()
 
-
-
-                // File APIs need JWT
+                // Public health check
                 .requestMatchers(
-                        "/api/files/**"
-                )
-                .authenticated()
+                    "/actuator/health"
+                ).permitAll()
 
-
-
-                // React OPTIONS request
+                // Public authentication APIs
                 .requestMatchers(
-                        org.springframework.http.HttpMethod.OPTIONS,
-                        "/**"
-                )
-                .permitAll()
+                    "/api/auth/**",
+                    "/api/users/register"
+                ).permitAll()
 
+                // Protected file APIs
+                .requestMatchers(
+                    "/api/files/**"
+                ).authenticated()
 
-
-                // Other APIs
-                .anyRequest()
-                .authenticated()
-
+                // Everything else requires authentication
+                .anyRequest().authenticated()
             )
-
 
             .httpBasic(httpBasic ->
                 httpBasic.disable()
             )
 
-
             .formLogin(form ->
                 form.disable()
             );
 
-
-
-        // JWT Filter
         http.addFilterBefore(
-                jwtFilter,
-                UsernamePasswordAuthenticationFilter.class
+            jwtFilter,
+            UsernamePasswordAuthenticationFilter.class
         );
 
-
         return http.build();
-
     }
-
-
-
 
     @Bean
     public AuthenticationManager authenticationManager(
             AuthenticationConfiguration configuration
     ) throws Exception {
 
-
         return configuration.getAuthenticationManager();
-
     }
-
-
-
 
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
 
-
         CorsConfiguration configuration =
-                new CorsConfiguration();
-
+            new CorsConfiguration();
 
         configuration.setAllowedOriginPatterns(
-                List.of("http://localhost:5173")
+            List.of("http://localhost:5173")
         );
-
 
         configuration.setAllowedMethods(
-                List.of(
-                        "GET",
-                        "POST",
-                        "PUT",
-                        "DELETE",
-                        "OPTIONS"
-                )
+            List.of(
+                "GET",
+                "POST",
+                "PUT",
+                "DELETE",
+                "OPTIONS"
+            )
         );
-
 
         configuration.setAllowedHeaders(
-                List.of("*")
+            List.of("*")
         );
-
 
         configuration.setAllowCredentials(true);
 
-
-
         UrlBasedCorsConfigurationSource source =
-                new UrlBasedCorsConfigurationSource();
-
+            new UrlBasedCorsConfigurationSource();
 
         source.registerCorsConfiguration(
-                "/**",
-                configuration
+            "/**",
+            configuration
         );
 
-
         return source;
-
     }
-
 }

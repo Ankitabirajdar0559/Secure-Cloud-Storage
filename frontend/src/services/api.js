@@ -1,45 +1,38 @@
 import axios from "axios";
 
-
 const API = axios.create({
-
-    baseURL:"http://localhost:8081/api"
-
+    baseURL: "/api"
 });
 
-
-
 API.interceptors.request.use(
+    (config) => {
 
-(config)=>{
+        const publicUrls = [
+            "/auth/login",
+            "/auth/register",
+            "/users/register"
+        ];
 
+        const isPublicRequest = publicUrls.some(
+            (url) => config.url === url
+        );
 
-    const token =
-        localStorage.getItem("token");
+        if (!isPublicRequest) {
 
+            const token = localStorage.getItem("token");
 
-    if(token){
+            if (token) {
+                config.headers.Authorization =
+                    `Bearer ${token}`;
+            }
+        }
 
-        config.headers.Authorization =
-        `Bearer ${token}`;
+        return config;
+    },
 
+    (error) => {
+        return Promise.reject(error);
     }
-
-
-    return config;
-
-
-},
-
-(error)=>{
-
-    return Promise.reject(error);
-
-}
-
-
 );
-
-
 
 export default API;
