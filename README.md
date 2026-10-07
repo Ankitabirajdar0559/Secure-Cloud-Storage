@@ -284,41 +284,70 @@ Frontend runs on `http://localhost:5173`.
 
 ---
 
-# 📸 Screenshots
+## 📸 Screenshots
 
-## Containers running
+<p align="center">
 
-All three tiers up, with the database healthy.
+<a href="docs/screenshots/01-login.png">
+<img src="docs/screenshots/01-login.png" width="700">
+</a>
 
-![Containers running](docs/screenshots/01-containers-running.png)
+<br>
 
-## Backend connected to the Docker database
+<a href="docs/screenshots/02-dashboard.png">
+<img src="docs/screenshots/02-dashboard.png" width="700">
+</a>
 
-The backend log shows the application started and connected to `db:3306`.
+<br>
 
-![Backend logs](docs/screenshots/02-backend-logs.png)
+<a href="docs/screenshots/03-my-files.png">
+<img src="docs/screenshots/03-my-files.png" width="700">
+</a>
 
-## Login page
+<br>
 
-![Login page](docs/screenshots/03-login-page.png)
+<a href="docs/screenshots/04-upload.png">
+<img src="docs/screenshots/04-upload.png" width="700">
+</a>
 
-## Dashboard
+<br>
 
-![Dashboard](docs/screenshots/04-dashboard.png)
+<a href="docs/screenshots/05-profile.png">
+<img src="docs/screenshots/05-profile.png" width="700">
+</a>
 
-## File upload and My Files
+<br>
 
-![My Files](docs/screenshots/05-my-files.png)
+<a href="docs/screenshots/06-docker-register.png">
+<img src="docs/screenshots/06-docker-register.png" width="700">
+</a>
 
-## Database tables
+<br>
 
-![Database](docs/screenshots/06-database.png)
+<a href="docs/screenshots/07-docker-upload.png">
+<img src="docs/screenshots/07-docker-upload.png" width="700">
+</a>
 
-## Tier isolation proof
+<br>
 
-The backend can resolve the database. The web tier cannot.
+<a href="docs/screenshots/08-docker-containers.png">
+<img src="docs/screenshots/08-docker-containers.png" width="700">
+</a>
 
-![Tier isolation](docs/screenshots/07-isolation.png)
+<br>
+
+<a href="docs/screenshots/09-docker-images.png">
+<img src="docs/screenshots/09-docker-images.png" width="700">
+</a>
+
+<br>
+
+<a href="docs/screenshots/10-docker-volumes.png">
+<img src="docs/screenshots/10-docker-volumes.png" width="700">
+</a>
+
+</p>
+
 
 ---
 
